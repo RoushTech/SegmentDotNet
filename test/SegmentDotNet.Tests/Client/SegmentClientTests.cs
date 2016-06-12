@@ -18,14 +18,17 @@
         public SegmentClientTests()
         {
             // Tooling for this in the future would be amazing.
-            var env = File.ReadAllText(".env");
-            var lines = env.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-            foreach(var line in lines)
+            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SEGMENT_WRITE_KEY")))
             {
-                var segments = line.Split('=');
-                if(segments[0] == "SEGMENT_WRITE_KEY")
+                var env = File.ReadAllText(".env");
+                var lines = env.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+                foreach (var line in lines)
                 {
-                    Environment.SetEnvironmentVariable("SEGMENT_WRITE_KEY", segments[1]);
+                    var segments = line.Split('=');
+                    if (segments[0] == "SEGMENT_WRITE_KEY")
+                    {
+                        Environment.SetEnvironmentVariable("SEGMENT_WRITE_KEY", segments[1]);
+                    }
                 }
             }
         }
