@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Http;
     using Moq;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using SegmentDotNet.Client.Request;
     using SegmentDotNet.Contexts;
     using Xunit;
@@ -21,8 +22,8 @@
         {
             var track = this.SetupRequest<Track>();
             track.Context.Add(this.SetupGoogleAnalyitics());
-            var request = JsonConvert.DeserializeAnonymousType(this.SetupClient().Serialize(track), new { context = new { Google_Analyitics = new { clientId = "" } } });
-            Assert.Equal("1033501218.1368477899", request.context.Google_Analyitics.clientId);
+            var context = JObject.Parse(this.SetupClient().Serialize(track))["context"];
+            Assert.Equal("{\"Google Analytics\":{\"clientId\":\"1033501218.1368477899\"}}", context.ToString(Formatting.None));
         }
 
         protected GoogleAnalyitics SetupGoogleAnalyitics()

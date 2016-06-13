@@ -1,12 +1,12 @@
 ﻿namespace SegmentDotNet.Contexts
 {
-    using Interfaces;
+    using Abstract;
     using Microsoft.AspNetCore.Http;
     using Newtonsoft.Json;
     using System.Linq;
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class GoogleAnalyitics : IContext
+    public class GoogleAnalyitics : ContextBase
     {
         public GoogleAnalyitics(IHttpContextAccessor httpContextAccessor)
         {
@@ -15,7 +15,7 @@
 
         protected IHttpContextAccessor HttpContextAccessor { get; set; }
 
-        public string Key { get { return "Google Analyitics"; } }
+        public override string Key { get { return "Google Analytics"; } }
 
         [JsonProperty("clientId")]
         public string ClientId { get { return this.GetGoogleAnalyticsCookie(); } }

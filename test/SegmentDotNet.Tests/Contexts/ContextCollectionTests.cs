@@ -2,22 +2,22 @@
 {
     using Newtonsoft.Json;
     using SegmentDotNet.Contexts;
-    using SegmentDotNet.Contexts.Interfaces;
+    using SegmentDotNet.Contexts.Abstract;
     using Xunit;
 
     public class ContextCollectionTests
     {
-        protected class ContextMock : IContext
+        protected class ContextMock : ContextBase
         {
-            public string Key { get { return "Context Mock"; } }
+            public override string Key { get { return "Context Mock"; } }
 
             [JsonProperty("test")]
             public string Test { get { return "value"; } }
         }
 
-        protected class ContextMock2 : IContext
+        protected class ContextMock2 : ContextBase
         {
-            public string Key { get { return "Context Mock2"; } }
+            public override string Key { get { return "Context Mock2"; } }
 
             [JsonProperty("test2")]
             public string Test { get { return "value2"; } }
@@ -40,6 +40,17 @@
             contextCollection.Add(new ContextMock2());
             var json = JsonConvert.SerializeObject(contextCollection);
             Assert.Equal("{\"Context Mock\":{\"test\":\"value\"},\"Context Mock2\":{\"test2\":\"value2\"}}", json);
+        }
+
+        [Fact]
+        public void Serialization_With_Custom_Params()
+        {
+            var contextCollection = new ContextCollection();
+            var contextMock = new ContextMock();
+            contextMock.Properties = new { custom1 = 1, custom2 = "custom222" };
+            contextCollection.Add(contextMock);
+            var json = JsonConvert.SerializeObject(contextCollection);
+            Assert.Equal("{\"Context Mock\":{\"test\":\"value\",\"custom1\":1,\"custom2\":\"custom222\"}}", json);
         }
     }
 }
