@@ -1,19 +1,13 @@
 ﻿namespace SegmentDotNet.Tests.Client
 {
-    using Abstractions;
-    using Configuration;
-    using Microsoft.Extensions.Options;
-    using Moq;
     using Newtonsoft.Json;
-    using SegmentDotNet.Client;
     using SegmentDotNet.Client.Request;
-    using SegmentDotNet.Client.Request.Abstract;
     using System;
     using System.IO;
     using System.Threading.Tasks;
     using Xunit;
 
-    public class SegmentClientTests : IDisposable
+    public class SegmentClientTests : TestBase, IDisposable
     {
         public SegmentClientTests()
         {
@@ -102,29 +96,6 @@
             var batch = new Batch();
             batch.Items.Add(identify);
             await this.SetupClient().Batch(batch);
-        }
-
-        protected SegmentClient SetupClient(string writeKey = null)
-        {
-            if(writeKey == null)
-            {
-                writeKey = Environment.GetEnvironmentVariable("SEGMENT_WRITE_KEY");
-            }
-
-            var optionsMock = new Mock<IOptions<SegmentConfiguration>>();
-            var configurationMock = new Mock<SegmentConfiguration>();
-            configurationMock.Setup(c => c.WriteKey).Returns(writeKey);
-            optionsMock.Setup(o => o.Value).Returns(configurationMock.Object);
-            var segmentClient = new SegmentClient(optionsMock.Object);
-            return segmentClient;
-        }
-
-        protected T SetupRequest<T>()
-            where T : UserTimestampBase
-        {
-            var datetimeMock = new Mock<IDateTime>();
-            datetimeMock.Setup(d => d.UtcNow).Returns(new DateTime(2016, 6, 12, 5, 20, 50, 523, DateTimeKind.Utc));
-            return Activator.CreateInstance(typeof(T), datetimeMock.Object) as T;
         }
 
         public void Dispose()
