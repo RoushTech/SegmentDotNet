@@ -26,7 +26,7 @@
                 }
             }
         }
-        
+
         [Fact]
         public void Should_Serialize_Timestamp()
         {
@@ -96,6 +96,15 @@
             var batch = new Batch();
             batch.Items.Add(identify);
             await this.SetupClient().Batch(batch);
+        }
+
+        [Fact]
+        public async Task Should_Error_On_Large_Json()
+        {
+            var page = this.SetupRequest<Page>();
+            page.UserId = "1234";
+            page.Name = new string('a', 102400);
+            await Assert.ThrowsAsync<Exception>(async () => await this.SetupClient().Page(page));
         }
 
         public void Dispose()
