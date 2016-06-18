@@ -1,22 +1,17 @@
 ﻿namespace SegmentDotNet.Contexts.Serializers
 {
     using Abstract;
+    using Json;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using System;
     using System.Reflection;
-    
+
     public class ContextBaseSerializer : JsonConverter
     {
-        protected object NestedLock = new object();
-
-        protected bool Nested { get; set; }
-
-        public override bool CanWrite { get { lock (this.NestedLock) { return true && !this.Nested; } } }
-
         public override bool CanConvert(Type objectType)
         {
-            return typeof(ContextBase).GetTypeInfo().IsAssignableFrom(objectType) && !this.Nested;
+            return typeof(ContextBase).GetTypeInfo().IsAssignableFrom(objectType);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -27,13 +22,7 @@
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var contextBase = value as ContextBase;
-            JToken valueToken;
-            lock (this.NestedLock)
-            {
-                this.Nested = true;
-                valueToken = JToken.FromObject(value);
-                this.Nested = false;
-            }
+            var valueToken = JToken.FromObject(value, new ForcedObjectSerializer());
 
             if (contextBase.Properties != null)
             {

@@ -52,5 +52,20 @@
             var json = JsonConvert.SerializeObject(contextCollection);
             Assert.Equal("{\"Context Mock\":{\"test\":\"value\",\"custom1\":1,\"custom2\":\"custom222\"}}", json);
         }
+
+        [Fact]
+        public void Serialization_With_Nested_Custom_Params()
+        {
+            var nestedContextCollection = new ContextCollection();
+            var contextMock2 = new ContextMock();
+            contextMock2.Properties = new { custom1 = "nested test" };
+            nestedContextCollection.Add(contextMock2);
+            var contextCollection = new ContextCollection();
+            var contextMock = new ContextMock();
+            contextMock.Properties = new { custom1 = nestedContextCollection };
+            contextCollection.Add(contextMock);
+            var json = JsonConvert.SerializeObject(contextCollection);
+            Assert.Equal("{\"Context Mock\":{\"test\":\"value\",\"custom1\":{\"Context Mock\":{\"test\":\"value\",\"custom1\":\"nested test\"}}}}", json);
+        }
     }
 }
