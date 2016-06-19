@@ -55,7 +55,7 @@
         [Fact]
         public async Task Can_Track()
         {
-            var track = new Track(null, this.GetDateTimeMock(), null);
+            var track = new Track(null, this.GetDateTimeMock(), null, null);
             track.UserId = "1234";
             track.Event = "Can_Track Test";
             await this.SetupClient().Track(track);

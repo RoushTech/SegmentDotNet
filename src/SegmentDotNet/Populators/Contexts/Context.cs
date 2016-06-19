@@ -5,16 +5,16 @@
 
     public class Context : Populator
     {
-        public Context(IEnumerable<IContext> contexts)
+        public Context(IEnumerable<IContextUpdater> contexts)
         {
-            this.Contexts = new List<IContext>(contexts);
+            this.Contexts = new List<IContextUpdater>(contexts);
         }
 
-        protected List<IContext> Contexts { get; set; }
+        protected List<IContextUpdater> Contexts { get; set; }
 
         public override void Prepare()
         {
-            this.Contexts.ForEach(c => c.UpdateContext(this.Properties));
+            this.Contexts.ForEach(c => c.UpdatePopulator(this.Properties));
         }
     }
 }

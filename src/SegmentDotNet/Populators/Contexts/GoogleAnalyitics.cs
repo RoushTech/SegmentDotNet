@@ -4,9 +4,8 @@
     using Newtonsoft.Json;
     using System.Linq;
     using System.Collections.Generic;
-
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class GoogleAnalyitics : IContext
+    
+    public class GoogleAnalyitics : IContextUpdater
     {
         public class GoogleAnalyiticsPayload
         {
@@ -38,9 +37,12 @@
             return cookie == null ? null : string.Join(".", cookie.Split('.').Reverse().Take(2).Reverse());
         }
 
-        public void UpdateContext(Dictionary<string, object> context)
+        public void UpdatePopulator(IDictionary<string, object> properties)
         {
-            context.Add("Google Analyitics", this.Payload);
+            if (this.Payload.ClientId != null)
+            {
+                properties.Add("Google Analyitics", this.Payload);
+            }
         }
     }
 }
