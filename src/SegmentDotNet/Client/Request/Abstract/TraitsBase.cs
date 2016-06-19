@@ -2,17 +2,18 @@
 {
     using Abstractions;
     using Newtonsoft.Json;
-    using System.Collections.Generic;
+    using Populators.Traits;
+    using Populators.Contexts;
+    using Populators.Integrations;
 
     public abstract class TraitsBase : AnonymousBase
     {
-        public TraitsBase(IDateTime datetime)
-            : base(datetime)
+        public TraitsBase(Context context, IDateTime datetime, Integrations integrations, Traits traits) : base(context, datetime, integrations)
         {
-
+            this.Traits = traits;
         }
 
         [JsonProperty("traits")]
-        public Dictionary<string, string> Traits { get; set; }
+        public Traits Traits { get; set; }
     }
 }

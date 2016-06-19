@@ -4,14 +4,14 @@
     using Abstractions;
     using Newtonsoft.Json;
     using System.Collections.Generic;
+    using Populators.Contexts;
+    using Populators.Integrations;
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class Track : AnonymousBase
     {
-        public Track(IDateTime datetime)
-            : base(datetime)
+        public Track(Context context, IDateTime datetime, Integrations integrations) : base(context, datetime, integrations)
         {
-
         }
 
         public override string Type { get { return "track"; } }

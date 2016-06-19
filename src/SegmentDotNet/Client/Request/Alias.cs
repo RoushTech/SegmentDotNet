@@ -5,14 +5,14 @@ namespace SegmentDotNet.Client.Request
     using Abstract;
     using Abstractions;
     using Newtonsoft.Json;
+    using Populators.Contexts;
+    using Populators.Integrations;
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class Alias : UserTimestampBase
     {
-        public Alias(IDateTime datetime)
-            : base(datetime)
+        public Alias(Context context, IDateTime datetime, Integrations integrations) : base(context, datetime, integrations)
         {
-
         }
 
         public override string Type {  get { return "alias"; } }

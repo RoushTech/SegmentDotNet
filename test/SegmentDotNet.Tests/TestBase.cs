@@ -31,5 +31,12 @@
             datetimeMock.Setup(d => d.UtcNow).Returns(new DateTime(2016, 6, 12, 5, 20, 50, 523, DateTimeKind.Utc));
             return Activator.CreateInstance(typeof(T), datetimeMock.Object) as T;
         }
+
+        protected IDateTime GetDateTimeMock()
+        {
+            var datetimeMock = new Mock<IDateTime>();
+            datetimeMock.Setup(d => d.UtcNow).Returns(new DateTime(2016, 6, 12, 5, 20, 50, 523, DateTimeKind.Utc));
+            return datetimeMock.Object;
+        }
     }
 }

@@ -1,22 +1,25 @@
 ﻿namespace SegmentDotNet.Client.Request.Abstract
 {
-    using Contexts;
     using Interfaces;
     using Newtonsoft.Json;
-    using System.Collections.Generic;
+    using Populators.Contexts;
+    using Populators.Integrations;
 
     public abstract class Base : ISegmentRequest
     {
-        public Base()
+        public Base(
+            Context context,
+            Integrations integrations)
         {
-            this.Context = new ContextCollection();
+            this.Context = context;
+            this.Integrations = integrations;
         }
 
         [JsonProperty("context")]
-        public ContextCollection Context { get; set; }
+        public Context Context { get; set; }
 
         [JsonProperty("integrations")]
-        public Dictionary<string, string> Integrations { get; set; }
+        public Integrations Integrations { get; set; }
 
         public abstract string Endpoint { get; }
     }

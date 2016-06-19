@@ -73,7 +73,7 @@
             }
         }
 
-        public string Serialize(Base baseClass)
+        public string Serialize(object baseClass)
         {
             return JsonConvert.SerializeObject(baseClass);
         }

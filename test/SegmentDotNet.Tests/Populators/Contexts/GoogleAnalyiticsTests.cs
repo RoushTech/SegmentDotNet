@@ -1,11 +1,11 @@
-﻿namespace SegmentDotNet.Tests.Contexts
+﻿namespace SegmentDotNet.Tests.Populators.Contexts
 {
     using Microsoft.AspNetCore.Http;
     using Moq;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
-    using SegmentDotNet.Client.Request;
-    using SegmentDotNet.Contexts;
+    using SegmentDotNet.Populators.Contexts;
+    using System.Collections.Generic;
     using Xunit;
 
     public class GoogleAnalyiticsTest : TestBase
@@ -14,16 +14,16 @@
         public void Parses_Google_Analyitics_Cookie()
         {
             var googleAnalyitics = this.SetupGoogleAnalyitics();
-            Assert.Equal("1033501218.1368477899", googleAnalyitics.ClientId);
+            Assert.Equal("1033501218.1368477899", googleAnalyitics.Payload.ClientId);
         }
 
         [Fact]
         public void Serialize_With_Extensions()
         {
-            var track = this.SetupRequest<Track>();
-            track.Context.Add(this.SetupGoogleAnalyitics());
-            var context = JObject.Parse(this.SetupClient().Serialize(track))["context"];
-            Assert.Equal("{\"Google Analytics\":{\"clientId\":\"1033501218.1368477899\"}}", context.ToString(Formatting.None));
+            var context = new Context(new List<IContext>() { this.SetupGoogleAnalyitics() });
+            context.Prepare();
+            var json = JObject.Parse(this.SetupClient().Serialize(context));
+            Assert.Equal("{\"Google Analyitics\":{\"clientId\":\"1033501218.1368477899\"}}", json.ToString(Formatting.None));
         }
 
         protected GoogleAnalyitics SetupGoogleAnalyitics()

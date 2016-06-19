@@ -3,11 +3,17 @@
     using Abstractions;
     using Newtonsoft.Json;
     using System;
+    using Populators.Contexts;
+    using Populators.Integrations;
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public abstract class UserTimestampBase : Base
     {
-        public UserTimestampBase(IDateTime datetime)
+        public UserTimestampBase(
+            Context context,
+            IDateTime datetime,
+            Integrations integrations)
+            : base(context, integrations)
         {
             this.DateTime = datetime;
         }
