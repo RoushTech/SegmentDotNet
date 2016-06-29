@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5E6DE7BC-0749-4C63-8441-95A5756E5167}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EDA04816-70FA-4427-AC2D-D5FBA1B12951}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		global.json = global.json
+		LICENSE.txt = LICENSE.txt
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SegmentDotNet", "src\SegmentDotNet\SegmentDotNet.xproj", "{AE25F674-BAAB-41B7-8FF5-36EAF7341ECC}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SegmentDotNet.Tests", "test\SegmentDotNet.Tests\SegmentDotNet.Tests.xproj", "{D5950492-E758-4EB5-AE16-F5D4BCF1EC85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5BF05EAE-3AD2-40BF-9EE1-5E92C1F5A90B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE25F674-BAAB-41B7-8FF5-36EAF7341ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE25F674-BAAB-41B7-8FF5-36EAF7341ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE25F674-BAAB-41B7-8FF5-36EAF7341ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE25F674-BAAB-41B7-8FF5-36EAF7341ECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5950492-E758-4EB5-AE16-F5D4BCF1EC85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5950492-E758-4EB5-AE16-F5D4BCF1EC85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5950492-E758-4EB5-AE16-F5D4BCF1EC85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5950492-E758-4EB5-AE16-F5D4BCF1EC85}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AE25F674-BAAB-41B7-8FF5-36EAF7341ECC} = {5E6DE7BC-0749-4C63-8441-95A5756E5167}
+		{D5950492-E758-4EB5-AE16-F5D4BCF1EC85} = {5BF05EAE-3AD2-40BF-9EE1-5E92C1F5A90B}
+	EndGlobalSection
+EndGlobal
